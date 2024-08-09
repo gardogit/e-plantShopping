@@ -13,9 +13,13 @@ export const CartSlice = createSlice({
         if (existingItem) {
           existingItem.quantity += 1;
         } else {
-          state.items.push({ ...newItem, quantity: 1 });
+          state.items.push({
+            ...newItem,
+            quantity: 1,
+            cost: typeof newItem.cost === 'number' ? newItem.cost : parseFloat(newItem.cost.replace('$', ''))
+          });
         }
-    },
+      },      
     removeItem: (state, action) => {
         state.items = state.items.filter(item => item.name !== action.payload.name);
     },
